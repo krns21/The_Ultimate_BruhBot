@@ -1,0 +1,24 @@
+{
+  "name": "the_ultimate_bruhbot",
+  "version": "1.0.0",
+  "description": "- [ ] Voting System for Mod rights\r - [ ] Music\r - [ ] Voice Channel Control\r - [ ] Greeting",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krns21/The_Ultimate_BruhBot.git"
+  },
+  "keywords": [],
+  "author": "krns21",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krns21/The_Ultimate_BruhBot/issues"
+  },
+  "homepage": "https://github.com/krns21/The_Ultimate_BruhBot#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0"
+  }
+}
