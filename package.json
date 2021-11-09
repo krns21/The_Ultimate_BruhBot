@@ -2,7 +2,7 @@
   "name": "the_ultimate_bruhbot",
   "version": "1.0.0",
   "description": "- [ ] Voting System for Mod rights\r - [ ] Music\r - [ ] Voice Channel Control\r - [ ] Greeting",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,7 +18,14 @@
   },
   "homepage": "https://github.com/krns21/The_Ultimate_BruhBot#readme",
   "dependencies": {
-    "discord.js": "^12.5.3",
-    "dotenv": "^10.0.0"
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.20.2",
+    "discord-player": "^5.1.0",
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0",
+    "ffmpeg-static": "^4.4.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "yt-search": "^2.10.2",
+    "ytdl-core": "^4.9.1"
   }
 }
