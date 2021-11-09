@@ -15,7 +15,14 @@ client.on('ready', () => {
 
 
 client.on('message', msg => {
-    if (msg.content === 'ping') {
-        msg.reply('pong')
+    if (!msg.content.startsWith('!')) return;
+    if (msg.content.startsWith('!play')) {
+        msg.reply('Playing')
+    } else if (msg.content.startsWith('!skip')) {
+        msg.reply('Skipped')
+    } else if (msg.content.startsWith('!stop')) {
+        msg.reply('stopped')
+    } else {
+        msg.reply('Invalid Command')
     }
 })
