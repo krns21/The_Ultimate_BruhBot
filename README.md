@@ -1,9 +1,8 @@
 # The Ultimate BruhBot
 
 ## Features:
-- [ ] Voting System for Mod rights
+- [ ] Voting System for Mayor rights
 - [ ] Music
-- [ ] Voice Channel Control
 - [ ] Greeting
 
 ## Dependencies:
