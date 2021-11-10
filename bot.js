@@ -15,5 +15,4 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
-// Login to Discord
 client.login(token);
