@@ -4,12 +4,19 @@ require('dotenv').config();
 // Require the necessary discord.js classes
 const { Client, Collection, Intents } = require('discord.js');
 const fs = require('fs');
+const { Player } = require('discord-player');
+
 
 // Create bot token const
 const token = process.env.DISCORD_TOKEN;
 
 // Create a new client instance
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
+
+// Create a new Player
+const player = new Player(client);
+
+player.on('trackStart', (queue, track) => queue.metadata.channel.send(`Now Playing ${track.title}`));
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));

@@ -10,12 +10,35 @@ module.exports = {
                 .setDescription('The song you want to add to the queue')
                 .setRequired(true)),
     async execute(interaction) {
-        try {
-            const search = interaction.options.get('song').value;
-            await interaction.reply(`Added ${search} to the queue`);
-        } catch (error) {
-            console.log(error);
-            interaction.followUp({ content:'There was an error trying to execute that command.' });
+        if (!interaction.member.voice.channelId) {
+            return await interaction.reply({ content: 'You are not in a voice channel!', ephemeral: true });
         }
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
+            return await interaction.reply({ content: 'You are not in my voice channel!', ephemeral: true });
+        }
+        const search = interaction.options.get('song').value;
+        const queue = player.createQueue(interaction.guild, {
+            metadata: {
+                channel: interaction.channel,
+            },
+        });
+        try {
+            if (!queue.connection) {
+                await queue.connect(interaction.member.voice.channel);
+            }
+        } catch {
+            queue.destroy();
+            return await interaction.reply({ content: 'Could not join your voice channel', ephemeral:true });
+        }
+        await interaction.deferReply();
+        const track = await player.search(search, {
+            requestedBy: interaction.user,
+        }).then(x => x.tracks[0]);
+        if (!track) {
+            return await interaction.followUp(`Track${search} not found`);
+        }
+        queue.addTrack(track);
+
+        return await interaction.followUp(`Adding track ${track.title}`);
     },
 };
