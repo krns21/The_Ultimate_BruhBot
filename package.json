@@ -1,7 +1,7 @@
 {
   "name": "the_ultimate_bruhbot",
   "version": "1.0.0",
-  "description": "- [ ] Voting System for Mod rights\r - [ ] Music\r - [ ] Voice Channel Control\r - [ ] Greeting",
+  "description": " An all-in-one discord bot",
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

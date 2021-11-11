@@ -1,11 +1,25 @@
 # The Ultimate BruhBot
 
-## Features:
-- [ ] Voting System for Mayor rights
-- [ ] Music
-- [ ] Greeting
+## Music:
+- [ ] play
+- [ ] pause
+- [ ] add
+- - add command works but bugs occur due to corrupt webpocket packaged making the bot think the track has ended. Focus on how to make streaming using ytdl better
+- [ ] remove
+- [ ] stop
+- [ ] clear
+- [ ] shuffle
+- [ ] skip
+- [ ] queue
+- [ ] playlist
 
-## Dependencies:
-- discord.js @ 12.5.3
-- ffmpeg @ 0.0.4
-- ytdl-core @ 4.9.1
+## Voting system
+- [ ] start-mayor-vote
+- [ ] vote
+
+## Point system
+- [ ] points(v) - minutes spent in voice channel
+- [ ] points(t) - number of texts sent in text channel
+- [ ] rank(v) - rank in voice channel
+- [ ] rank(t) - rank in text channel
+
