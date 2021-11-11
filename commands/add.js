@@ -10,6 +10,7 @@ module.exports = {
                 .setDescription('The song you want to add to the queue')
                 .setRequired(true)),
     async execute(interaction) {
+        const { player } = require('..');
         if (!interaction.member.voice.channelId) {
             return await interaction.reply({ content: 'You are not in a voice channel!', ephemeral: true });
         }
@@ -38,7 +39,11 @@ module.exports = {
             return await interaction.followUp(`Track${search} not found`);
         }
         queue.addTrack(track);
-
+        console.log(queue.tracks.length);
+        if (queue.tracks.length == 1) {
+            queue.play();
+            return await interaction.followUp(`Playing track ${track.title}`);
+        }
         return await interaction.followUp(`Adding track ${track.title}`);
     },
 };

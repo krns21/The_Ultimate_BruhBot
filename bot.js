@@ -51,3 +51,6 @@ client.on('interactionCreate', async interaction => {
 // Login to discord
 client.login(token);
 
+module.exports = {
+	player,
+};
