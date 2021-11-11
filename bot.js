@@ -16,7 +16,8 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 // Create a new Player
 const player = new Player(client);
 
-player.on('trackStart', (queue, track) => queue.metadata.channel.send(`Now Playing ${track.title}`));
+// Define Player settings
+
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
