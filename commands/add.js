@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('add')
@@ -17,10 +16,18 @@ module.exports = {
         if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
             return await interaction.reply({ content: 'You are not in my voice channel!', ephemeral: true });
         }
+
+
         const search = interaction.options.get('song').value;
         const queue = player.createQueue(interaction.guild, {
             metadata: {
                 channel: interaction.channel,
+            },
+            ytdlOptions: {
+                quality: 'lowest',
+                filter: 'audioonly',
+                highWaterMark: 1 << 25,
+                dlChunkSize: 0,
             },
         });
         try {
@@ -40,10 +47,12 @@ module.exports = {
         }
         queue.addTrack(track);
         console.log(queue.tracks.length);
-        if (queue.tracks.length == 1) {
-            queue.play();
+
+        await interaction.followUp(`Adding track ${track.title}`);
+
+        if (!queue.playing) {
+            await queue.play();
             return await interaction.followUp(`Playing track ${track.title}`);
         }
-        return await interaction.followUp(`Adding track ${track.title}`);
     },
 };
