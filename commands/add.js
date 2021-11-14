@@ -1,4 +1,13 @@
+require('dotenv').config();
+
+const cookie = process.env.COOKIE;
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const playdl = require('play-dl');
+playdl.setToken({
+    youtube : {
+        cookie : cookie,
+    },
+});
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,14 +29,9 @@ module.exports = {
 
         const search = interaction.options.get('song').value;
         const queue = player.createQueue(interaction.guild, {
-            metadata: {
-                channel: interaction.channel,
-            },
-            ytdlOptions: {
-                quality: 'lowest',
-                filter: 'audioonly',
-                highWaterMark: 1 << 25,
-                dlChunkSize: 0,
+            metadata: interaction.channel,
+            async onBeforeCreateStream(track) {
+                return (await playdl.stream(track.url)).stream;
             },
         });
         try {
@@ -46,13 +50,12 @@ module.exports = {
             return await interaction.followUp(`Track${search} not found`);
         }
         queue.addTrack(track);
-        console.log(queue.tracks.length);
-
-        await interaction.followUp(`Adding track ${track.title}`);
 
         if (!queue.playing) {
-            await queue.play();
-            return await interaction.followUp(`Playing track ${track.title}`);
+            await interaction.followUp(`Playing track ${track.title}`);
+            return await queue.play();
+        } else {
+            await interaction.followUp(`Adding track ${track.title}`);
         }
     },
 };

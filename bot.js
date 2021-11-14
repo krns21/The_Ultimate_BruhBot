@@ -5,18 +5,30 @@ require('dotenv').config();
 const { Client, Collection, Intents } = require('discord.js');
 const fs = require('fs');
 const { Player } = require('discord-player');
+const playdl = require('play-dl');
 
 
 // Create bot token const
 const token = process.env.DISCORD_TOKEN;
+const cookie = process.env.COOKIE;
+
+playdl.setToken({
+    youtube : {
+        cookie : cookie,
+    },
+});
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 
 // Create a new Player
-const player = new Player(client);
-
-// Define Player settings
+const player = new Player(client, {
+	ytdlOptions:{
+		quality:'highestaudio',
+		filter:'audioonly',
+		highWaterMark: 1 << 25,
+	},
+});
 
 
 client.commands = new Collection();
@@ -54,4 +66,5 @@ client.login(token);
 
 module.exports = {
 	player,
+	playdl,
 };
