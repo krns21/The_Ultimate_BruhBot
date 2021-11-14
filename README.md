@@ -1,12 +1,11 @@
 # The Ultimate BruhBot
 
 ## Music:
-- [ ] play
+- [x] play
 - [ ] pause
-- [ ] add
-- - add command works but bugs occur due to corrupt webpocket packaged making the bot think the track has ended. Focus on how to make streaming using ytdl better
-- [ ] remove
-- [ ] stop
+- [x] add
+- [h] remove 
+- [h] stop
 - [ ] clear
 - [ ] shuffle
 - [ ] skip

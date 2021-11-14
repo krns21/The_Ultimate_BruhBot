@@ -12,13 +12,14 @@ const playdl = require('play-dl');
 const token = process.env.DISCORD_TOKEN;
 const cookie = process.env.COOKIE;
 
+// Saves cookie as part of pladl settings
 playdl.setToken({
     youtube : {
         cookie : cookie,
     },
 });
 
-// Create a new client instance
+// Create a new client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 
 // Create a new Player
