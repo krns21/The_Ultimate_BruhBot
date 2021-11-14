@@ -1,13 +1,5 @@
-require('dotenv').config();
-
-const cookie = process.env.COOKIE;
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const playdl = require('play-dl');
-playdl.setToken({
-    youtube : {
-        cookie : cookie,
-    },
-});
+
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,7 +10,7 @@ module.exports = {
                 .setDescription('The song you want to play')
                 .setRequired(true)),
     async execute(interaction) {
-        const { player } = require('..');
+        const { player, playdl } = require('..');
         if (!interaction.member.voice.channelId) {
             return await interaction.reply({ content: 'You are not in a voice channel!', ephemeral: true });
         }

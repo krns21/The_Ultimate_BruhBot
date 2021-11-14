@@ -1,20 +1,11 @@
-require('dotenv').config();
-
-const cookie = process.env.COOKIE;
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const playdl = require('play-dl');
-playdl.setToken({
-    youtube : {
-        cookie : cookie,
-    },
-});
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('stop')
         .setDescription('stops the music'),
     async execute(interaction) {
-        const { player } = require('..');
+        const { player, playdl } = require('..');
         if (!interaction.member.voice.channelId) {
             return await interaction.reply({ content: 'You are not in a voice channel!', ephemeral: true });
         }
@@ -40,7 +31,7 @@ module.exports = {
 
         if (queue.playing) {
             await interaction.followUp('Stopped the music');
-            return queue.stop();
+            return queue.setPaused(true);
         } else {
             await interaction.followUp('No music playing currently');
         }
