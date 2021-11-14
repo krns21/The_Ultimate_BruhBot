@@ -31,7 +31,7 @@ module.exports = {
 
         if (queue.playing) {
             await interaction.followUp('Stopped the music');
-            return queue.setPaused(true);
+            return queue.destroy(false);
         } else {
             await interaction.followUp('No music playing currently');
         }

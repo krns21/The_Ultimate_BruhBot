@@ -40,11 +40,7 @@ module.exports = {
                     if (!track) {
                         return await interaction.followUp(`Track${search} not found`);
                     }
-                    try {
-                        queue.remove(track);
-                        await interaction.followUp(`Removed track ${track.title}`);
-                    } catch {
-                        return await interaction.reply(`Track ${track.title} not in queue`);
-                    }
+                    queue.remove(track);
+                    await interaction.followUp(`Removed track ${track.title}`);
                 },
 };
