@@ -1,16 +1,16 @@
 # The Ultimate BruhBot
 
-## Music:
+## Music YT:
 - [x] play
 - [ ] pause
 - [x] add
-- [h] remove 
-- [h] stop
+- [ ] # remove
+- [ ] repeat 
+- [ ] # stop
 - [ ] clear
 - [ ] shuffle
-- [ ] skip
+- [x] skip
 - [ ] queue
-- [ ] playlist
 
 ## Voting system
 - [ ] start-mayor-vote

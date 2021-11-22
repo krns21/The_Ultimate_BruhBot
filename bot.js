@@ -1,6 +1,7 @@
 // Run dotenv
 require('dotenv').config();
 
+
 // Require the necessary discord.js classes
 const { Client, Collection, Intents } = require('discord.js');
 const fs = require('fs');
@@ -20,7 +21,7 @@ playdl.setToken({
 });
 
 // Create a new client
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MEMBERS] });
 
 // Create a new Player
 const player = new Player(client, {
