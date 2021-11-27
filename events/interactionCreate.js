@@ -1,5 +1,6 @@
 module.exports = {
     name: 'interactionCreate',
+    tag: 'client',
     async execute(interaction) {
         console.log(`${interaction.user.tag} triggered an interaction.`);
         // Returns nothing if interaction is not part of commands

@@ -17,8 +17,9 @@ module.exports = {
         if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
             return await interaction.reply({ content: 'You are not in my voice channel!', ephemeral: true });
         }
-
-
+        
+        await interaction.deferReply({ephemeral:true});
+        
         const search = interaction.options.get('song').value;
         const queue = player.createQueue(interaction.guild, {
             metadata: interaction.channel,
@@ -32,9 +33,9 @@ module.exports = {
             }
         } catch {
             queue.destroy();
-            return await interaction.reply({ content: 'Could not join your voice channel', ephemeral:true });
+            return await interaction.followUp({ content: 'Could not join your voice channel', ephemeral:true });
         }
-        await interaction.deferReply();
+        
         const track = await player.search(search, {
             requestedBy: interaction.user,
         }).then(x => x.tracks[0]);
@@ -42,8 +43,7 @@ module.exports = {
             return await interaction.followUp(`Track${search} not found`);
         }
         queue.clear();
-        queue.addTrack(track);
-        queue.play();
-        await interaction.followUp(`Playing track ${track.title}`);
+        queue.play(track);
+        return await interaction.followUp('Request received');
     },
 };
