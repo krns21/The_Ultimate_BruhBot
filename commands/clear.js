@@ -29,11 +29,8 @@ module.exports = {
         }
         await interaction.deferReply();
 
-        if (queue.playing) {
-            await interaction.followUp('Stopped the music');
-            return queue.destroy(false);
-        } else {
-            await interaction.followUp('No music playing currently');
-        }
+        queue.clear();
+
+        await interaction.followUp('Queue successfully cleared!');
     },
 };

@@ -17,8 +17,7 @@ module.exports = {
         if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
             return await interaction.reply({ content: 'You are not in my voice channel!', ephemeral: true });
         }
-        
-        await interaction.deferReply({ephemeral:true});
+        await interaction.reply(`✅ || Request by ${interaction.user.tag} received! `)
         
         const search = interaction.options.get('song').value;
         const queue = player.createQueue(interaction.guild, {
@@ -42,8 +41,7 @@ module.exports = {
         if (!track) {
             return await interaction.followUp(`Track${search} not found`);
         }
-        queue.clear();
         queue.play(track);
-        return await interaction.followUp('Request received');
+        await interaction.deleteReply();
     },
 };

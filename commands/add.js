@@ -42,11 +42,12 @@ module.exports = {
         if (!track) {
             return await interaction.followUp(`Track${search} not found`);
         }
-        queue.addTrack(track);
-        await interaction.followUp('Request received')
+        
+        await interaction.followUp({content: 'Request received', ephemeral:true});
         if (!queue.playing) {
-            return await queue.play();
+            return await queue.play(track);
         } else {
+            queue.addTrack(track);
         }
     },
 };

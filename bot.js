@@ -13,7 +13,7 @@ const playdl = require('play-dl');
 const token = process.env.DISCORD_TOKEN;
 const cookie = process.env.COOKIE;
 
-// Saves cookie as part of pladl settings
+// Saves cookie as part of playdl settings
 playdl.setToken({
     youtube : {
         cookie : cookie,
@@ -42,6 +42,14 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
+client.buttons = new Collection();
+const buttonFiles = fs.readdirSync('./buttons').filter(file => file.endsWith('.js'));
+
+for (const file of buttonFiles) {
+	const button = require(`./buttons/${file}`);
+
+	client.buttons.set(button.data.customId,button);
+}
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 

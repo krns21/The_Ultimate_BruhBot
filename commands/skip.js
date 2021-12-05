@@ -30,7 +30,6 @@ module.exports = {
         await interaction.deferReply();
 
         if (queue.playing) {
-            await interaction.followUp('Skipped the music');
             return queue.skip();
         } else {
             await interaction.followUp('No music playing currently');
