@@ -4,35 +4,27 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('skip')
         .setDescription('skips the music'),
+    tag: 'music',
     async execute(interaction) {
-        const { player, playdl } = require('..');
-        if (!interaction.member.voice.channelId) {
-            return await interaction.reply({ content: 'You are not in a voice channel!', ephemeral: true });
-        }
-        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
-            return await interaction.reply({ content: 'You are not in my voice channel!', ephemeral: true });
-        }
+        const { player } = require('..');
 
-        const queue = player.createQueue(interaction.guild, {
-            metadata: interaction.channel,
-            async onBeforeCreateStream(track) {
-                return (await playdl.stream(track.url)).stream;
-            },
-        });
+        await interaction.deferReply();
+
+        const queue = player.getQueue(interaction.guild);
         try {
             if (!queue.connection) {
                 await queue.connect(interaction.member.voice.channel);
             }
+
+            if (queue.playing) {
+                await interaction.followUp(`${queue.nowPlaying().title} skipped`);
+                return queue.skip();
+            } else {
+                await interaction.followUp('No music playing currently');
+            }
         } catch {
             queue.destroy();
-            return await interaction.reply({ content: 'Could not join your voice channel', ephemeral:true });
-        }
-        await interaction.deferReply();
-
-        if (queue.playing) {
-            return queue.skip();
-        } else {
-            await interaction.followUp('No music playing currently');
+            return await interaction.followUp({ content: 'Could not join your voice channel', ephemeral:true });
         }
     },
 };

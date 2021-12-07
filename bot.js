@@ -26,9 +26,16 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 // Create a new Player
 const player = new Player(client, {
 	ytdlOptions:{
-		quality:'highestaudio',
 		filter:'audioonly',
 		highWaterMark: 1 << 25,
+		requestOptions: {
+			headers: {
+				cookie : cookie,
+			}
+		}
+	},
+	async onBeforeCreateStream(track) {
+		return (await playdl.stream(track.url)).stream;
 	},
 });
 
@@ -76,6 +83,5 @@ client.login(token);
 
 module.exports = {
 	player,
-	playdl,
 	client,
 };

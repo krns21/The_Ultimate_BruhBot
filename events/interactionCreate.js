@@ -13,6 +13,14 @@ module.exports = {
             if (!command) return;
 
             try {
+                if (command.tag === 'music') {
+                    if (!interaction.member.voice.channelId) {
+                        return await interaction.reply({ content: 'You are not in a voice channel!', ephemeral: true });
+                    }
+                    if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
+                        return await interaction.reply({ content: 'You are not in my voice channel!', ephemeral: true });
+                    }
+                }
                 await command.execute(interaction);
             } catch (error) {
                 console.error(error);
@@ -26,10 +34,18 @@ module.exports = {
             if (!button) return;
 
             try {
+                if (button.tag === 'music') {
+                    if (!interaction.member.voice.channelId) {
+                        return await interaction.reply({ content: 'You are not in a voice channel!', ephemeral: true });
+                    }
+                    if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
+                        return await interaction.reply({ content: 'You are not in my voice channel!', ephemeral: true });
+                    }
+                }
                 await button.execute(interaction);
             } catch (error) {
                 console.error(error);
-                await interaction.reply({ content:'There was an error while executing this command', ephemeral: true });
+                await interaction.reply({ content:'There was an error while executing this button', ephemeral: true });
             }
         }
     },
