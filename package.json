@@ -28,10 +28,5 @@
     "ffmpeg-static": "^4.4.0",
     "play-dl": "^1.2.9",
     "ytdl-core": "^4.9.1"
-  },
-  "optionalDependencies": {
-    "bufferutil": "^4.0.5",
-    "pako": "^2.0.4",
-    "utf-8-validate": "^5.0.7"
   }
 }
