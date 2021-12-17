@@ -8,19 +8,23 @@ module.exports = {
     async execute(interaction) {
         const { player } = require('..');
 
-        await interaction.deferReply();
-
-        const queue = player.getQueue(interaction.guild);
+        const queue = player.createQueue(interaction.guild, {
+            metadata: interaction.user
+        });
 
         try {
-            if (!queue || !queue.playing ){
-                await interaction.followUp('No music is being played');
+            if (!queue.connection) {
+                await queue.connect(interaction.member.voice.channel);
             }
-            await interaction.followUp({content:'Queue'});
         } catch {
             queue.destroy();
             return await interaction.followUp({ content: 'Could not join your voice channel', ephemeral:true });
         }
 
+        if (!queue || !queue.playing ){
+            return await interaction.followUp('No music is being played');
+        } else {
+            return await interaction.followUp({content:'Queue'});
+        }
     },
 };

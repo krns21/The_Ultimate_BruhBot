@@ -13,36 +13,41 @@ module.exports = {
     async execute(interaction) {
         const { player } = require('..');
 
-        const search = interaction.options.get('song').value;
-
-        const queue = player.getQueue(interaction.guild);
-
-        await interaction.deferReply();
+        const queue = player.createQueue(interaction.guild, {
+            metadata: interaction.user
+        });
 
         try {
             if (!queue.connection) {
                 await queue.connect(interaction.member.voice.channel);
             }
-            const track = await player.search(search, {
-                requestedBy: interaction.user,
-            }).then(x => x.tracks[0]);
-            if (!track) {
-                return await interaction.followUp(`Track${search} not found`);
-            } else {
-                const pos = queue.tracks.indexOf(track);
-                switch (pos) {
-                    case -1:
-                        await interaction.followUp(`${track.title} not in queue`)
-                        break;            
-                    default:
-                        queue.remove(pos);
-                        await interaction.followUp(`Removed track ${track.title}`); 
-                        break;
-                }
-            }
         } catch {
             queue.destroy();
             return await interaction.followUp({ content: 'Could not join your voice channel', ephemeral:true });
+        }
+
+        const search = interaction.options.get('song').value;
+
+        const track = await player.search(search, {
+            requestedBy: interaction.user,
+        }).then(x => x.tracks[0]);
+
+        if (!track) {
+            return await interaction.followUp({content:`⛔ || Track : ${search}  not found`, ephemeral: true});
+        } else {
+            async (track) => {
+                try {
+                    for (const i of queue.tracks) {
+                        if (track.title === i.title) {
+                            const pos = queue.tracks.indexOf(i);
+                            queue.remove(pos);
+                            return await interaction.followUp(`Removed track ${track.title}`); 
+                        }
+                    }
+                } catch {
+                    return await interaction.followUp(`${track.title} not in queue`)
+                }
+            }
         }
     },
 };

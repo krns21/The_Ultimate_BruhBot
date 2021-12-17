@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction) {
         const { player } = require('..');
         
-        /* await interaction.deferUpdate(); */
+        await interaction.deferUpdate();
         const queue = player.getQueue(interaction.guild);
         queue.setPaused(true);
         await interaction.update({content:'Paused', components: []});
