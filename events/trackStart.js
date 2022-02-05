@@ -6,7 +6,7 @@ module.exports = {
     tag: 'player',
     async execute(queue, track) {
         const row = new MessageActionRow()
-            .addComponents(previous, pause, next)
+            .addComponents(previous, pause, next);
         await queue.metadata.send({content:`Playing ${track.title}`, components: [row]});
     },
 };
