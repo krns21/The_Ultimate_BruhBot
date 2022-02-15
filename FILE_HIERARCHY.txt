@@ -1,0 +1,47 @@
+File Hierarchy:
+	bot.js :
+		dotenv
+		playdl * test cookie
+		client
+		player * check whether playdl is needed for yt stream
+		commands collection
+		buttons collection
+		events handler containing tags
+		login
+		export: 
+			player
+			client
+	deploy-commands.js:
+		require guild id *
+	/commands: 
+		add.js : adds song saves add user * check if queue length >=1 else play instead
+		clear.js : requires voice channel connect * dont need + check queue length =0
+		play.js : plays song saves add user * check queue unpaused etc.
+		queue.js : *send queue details
+		remove.js : *remove using track title
+		skip.js : skips *make skipped message embed
+		stop.js: stops * make stopped message embed
+	/events:
+		interactionCreate.js: command/button handler containing tags
+		ready.js: console with usertag
+		trackAdd.js: send added message * make embed
+		trackStart.js: send start message * make embed with buttons * add progress bar
+	/buttons: *general* make buttons disabled when new trackstart event 
+		next.js : * use skip.js + check when it should be disabled
+		pause.js: * use queue.setPaused(true) 
+		previous.js: *+check when it should be available use queue methods
+		repeat.js: *use queue repeat + always active until button invalid
+		resume.js:*use setPaused 
+		shuffle.js:* use shuffle method + always active until button invalid
+	package.json: 
+		@discordjs/builders
+		@discordjs/opus
+		@discordjs/rest
+		discord-api-types
+		discord-player
+		discord.js
+		dotenv
+		ffmpeg-static
+		play-dl
+		ytdl-core
+
