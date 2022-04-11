@@ -45,7 +45,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	// Set a new item in the collection using name as key and value as the module
+	
 	client.commands.set(command.data.name, command);
 }
 

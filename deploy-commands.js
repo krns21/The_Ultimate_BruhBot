@@ -8,7 +8,7 @@ const fs = require('fs');
 const token = process.env.DISCORD_TOKEN;
 
 // Create GuildId/ClientId const
-const guildId = process.env.GUILD_ID;
+const guildId = 435421497524355072;
 const clientId = process.env.CLIENT_ID;
 
 // Defines the commands and describes them
